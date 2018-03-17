@@ -84,7 +84,7 @@
                             <label for="nis" class="col-sm-4 col-form-label text-md-right">Nis</label>
 
                             <div class="col-md-6">
-                                <input id="nis" type="text" class="form-control{{ $errors->has('nis') ? ' is-invalid' : '' }}" name="nis" required autofocus>
+                                <input id="nis" type="text" class="form-control{{ $errors->has('nis') ? ' is-invalid' : '' }}" name="nis" value="{{ old('nis') }}" required autofocus>
 
                                 @if ($errors->has('nis'))
                                     <span class="invalid-feedback">
@@ -98,7 +98,7 @@
                             <label for="nama" class="col-md-4 col-form-label text-md-right">Nama</label>
 
                             <div class="col-md-6">
-                                <input id="nama" type="text" class="form-control{{ $errors->has('nama') ? ' is-invalid' : '' }}" name="nama" required>
+                                <input id="nama" type="text" class="form-control{{ $errors->has('nama') ? ' is-invalid' : '' }}" name="nama" value="{{ old('nama') }}" required>
 
                                 @if ($errors->has('nama'))
                                     <span class="invalid-feedback">
@@ -112,7 +112,7 @@
                             <label for="alamat" class="col-md-4 col-form-label text-md-right">Alamat</label>
 
                             <div class="col-md-6">
-                                <input id="alamat" type="text" class="form-control{{ $errors->has('alamat') ? ' is-invalid' : '' }}" name="alamat" required>
+                                <input id="alamat" type="text" class="form-control{{ $errors->has('alamat') ? ' is-invalid' : '' }}" name="alamat" value="{{ old('alamat') }}" required>
 
                                 @if ($errors->has('alamat'))
                                     <span class="invalid-feedback">
