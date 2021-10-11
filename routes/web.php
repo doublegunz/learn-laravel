@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,11 +14,5 @@
 */
 
 Route::get('/', function () {
-    return redirect('login');
+    return view('welcome');
 });
-
-Route::resource('siswa', 'SiswaController');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
