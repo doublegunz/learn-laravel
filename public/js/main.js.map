@@ -1,0 +1,1 @@
+{"version":3,"file":"/js/main.js","mappings":"AAAAA,EAAEC,UAAUC,OAAM,WACdC,OAAOC,OAASJ,EAAE,2BAA2BK,KAAK","sources":["webpack:///./resources/js/main.js"],"sourcesContent":["$(document).ready(function () {\n    window._token = $('meta[name=\"csrf-token\"]').attr('content')\n\n})\n"],"names":["$","document","ready","window","_token","attr"],"sourceRoot":""}

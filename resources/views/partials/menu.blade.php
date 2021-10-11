@@ -9,6 +9,13 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a href="{{ route('user.index') }}" class="nav-link
+                    {{ request()->is('user') || request()->is('user/*') ? 'active':'' }}">
+                    <i class="fa-fw fas fa-user nav-icon"></i>
+                    Users
+                </a>
+            </li>
+            <li class="nav-item">
                 <a href="#" class="nav-link"
                     onclick="event.preventDefault(); document.getElementById('logoutform').submit();">
                     <i class="nav-icon fas fa-fw fa-sign-out-alt"></i>
