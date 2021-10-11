@@ -76,7 +76,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('admin.users.edit', compact('user'));
     }
 
     /**
@@ -88,7 +88,21 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'password' => 'nullable'
+        ]);
+
+        $data = $request->only('name', 'email');
+
+        if ($request->password != '') {
+            $data['password'] = Hash::make($request->password);
+        }
+
+        $user->update($data);
+
+        return redirect()->route('user.index');
     }
 
     /**
@@ -99,6 +113,14 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return redirect()->route('user.index');
+    }
+
+    public function massDestroy(Request $request)
+    {
+        User::whereIn('id', $request->ids)->delete();
+
+        return response()->noContent();
     }
 }
