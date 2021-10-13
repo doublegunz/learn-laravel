@@ -1,8 +1,7 @@
 {
-    "name": "laravel/laravel",
+    "name": "doublegunz/learn-laravel",
     "type": "project",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "description": "Belajar publish laravel",
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
