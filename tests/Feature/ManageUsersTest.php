@@ -15,13 +15,7 @@ class ManageUsersTest extends TestCase
     public function admin_can_create_new_user()
     {
         // admin dalam status sudah login
-        $admin = User::create([
-            'name' => 'admin',
-            'email' => 'admin@learn-laravel.com',
-            'password' => bcrypt('inigarahasia')
-        ]);
-
-        $this->actingAs($admin);
+        $this->setAdmin();
 
         // admin buka halaman daftar user
         $this->visit('/user');
@@ -62,14 +56,7 @@ class ManageUsersTest extends TestCase
     public function admin_can_browser_users_index_page()
     {
         // admin dalam status sudah login
-        $admin = User::create([
-            'name' => 'admin',
-            'email' => 'admin@learn-laravel.com',
-            'password' => bcrypt('inigarahasia')
-        ]);
-
-        $this->actingAs($admin);
-
+        $this->setAdmin();
 
         // generate 3 sample user record
         $user1 = User::factory()->create();
@@ -99,22 +86,13 @@ class ManageUsersTest extends TestCase
             'href' => route('user.edit', $user3->id)
         ]);
 
-
-
     }
 
     /** @test */
     public function admin_can_edit_an_existing_user()
     {
         // admin dalam status sudah login
-        $admin = User::create([
-            'name' => 'admin',
-            'email' => 'admin@learn-laravel.com',
-            'password' => bcrypt('inigarahasia')
-        ]);
-
-        $this->actingAs($admin);
-
+        $this->setAdmin();
 
         // generate 1 record user pada table `users`
         $user = User::factory()->create();
@@ -152,13 +130,7 @@ class ManageUsersTest extends TestCase
     public function admin_can_delete_an_existing_user()
     {
         // admin dalam status sudah login
-        $admin = User::create([
-            'name' => 'admin',
-            'email' => 'admin@learn-laravel.com',
-            'password' => bcrypt('inigarahasia')
-        ]);
-
-        $this->actingAs($admin);
+        $this->setAdmin();
 
         // generate 1 record di table `users`
         $user = User::factory()->create();
@@ -176,5 +148,16 @@ class ManageUsersTest extends TestCase
         $this->dontSeeInDatabase('users', [
             'id' => $user->id
         ]);
+    }
+
+    private function setAdmin()
+    {
+        $admin = User::create([
+            'name' => 'admin',
+            'email' => 'admin@learn-laravel.com',
+            'password' => bcrypt('inigarahasia')
+        ]);
+
+        $this->actingAs($admin);
     }
 }
