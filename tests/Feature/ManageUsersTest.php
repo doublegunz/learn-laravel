@@ -61,7 +61,46 @@ class ManageUsersTest extends TestCase
     /** @test */
     public function admin_can_browser_users_index_page()
     {
-        $this->assertTrue(true);
+        // admin dalam status sudah login
+        $user = User::create([
+            'name' => 'admin',
+            'email' => 'admin@learn-laravel.com',
+            'password' => bcrypt('inigarahasia')
+        ]);
+
+        $this->actingAs($user);
+
+
+        // generate 3 sample user record
+        $user1 = User::factory()->create();
+        $user2 = User::factory()->create();
+        $user3 = User::factory()->create();
+
+        // admin buka halaman daftar user
+        $this->visit('/user');
+
+        // admin melihat 3 data tampil pada halaman daftar user
+        $this->see($user1->name);
+        $this->see($user2->name);
+        $this->see($user3->name);
+
+        $this->seeElement('a', [
+            'id' => 'edit_user_' . $user1->id,
+            'href' => route('user.edit', $user1->id)
+        ]);
+
+        $this->seeElement('a', [
+            'id' => 'edit_user_' . $user2->id,
+            'href' => route('user.edit', $user2->id)
+        ]);
+
+        $this->seeElement('a', [
+            'id' => 'edit_user_' . $user3->id,
+            'href' => route('user.edit', $user3->id)
+        ]);
+
+
+
     }
 
     /** @test */
