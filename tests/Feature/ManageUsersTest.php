@@ -151,6 +151,30 @@ class ManageUsersTest extends TestCase
     /** @test */
     public function admin_can_delete_an_existing_user()
     {
-        $this->assertTrue(true);
+        // admin dalam status sudah login
+        $admin = User::create([
+            'name' => 'admin',
+            'email' => 'admin@learn-laravel.com',
+            'password' => bcrypt('inigarahasia')
+        ]);
+
+        $this->actingAs($admin);
+
+        // generate 1 record di table `users`
+        $user = User::factory()->create();
+
+        // admin buka halaman daftar user
+        $this->visit('/user');
+
+        // admin klik tombol delete
+        $this->press('delete_user_'.$user->id);
+
+        // lihat halaman ter-redirect
+        $this->seePageIs('/user');
+
+        // record user hilang dari table `users`
+        $this->dontSeeInDatabase('users', [
+            'id' => $user->id
+        ]);
     }
 }
