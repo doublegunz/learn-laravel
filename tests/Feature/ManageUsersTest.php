@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class ManageUsersTest extends TestCase
@@ -49,7 +48,6 @@ class ManageUsersTest extends TestCase
 
         $this->see('Gun Gun Priatna');
         $this->see('gungunpriatna@test.com');
-
     }
 
     /** @test */
@@ -85,7 +83,6 @@ class ManageUsersTest extends TestCase
             'id' => 'edit_user_' . $user3->id,
             'href' => route('user.edit', $user3->id)
         ]);
-
     }
 
     /** @test */
