@@ -15,13 +15,13 @@ class ManageUsersTest extends TestCase
     public function admin_can_create_new_user()
     {
         // admin dalam status sudah login
-        $user = User::create([
+        $admin = User::create([
             'name' => 'admin',
             'email' => 'admin@learn-laravel.com',
             'password' => bcrypt('inigarahasia')
         ]);
 
-        $this->actingAs($user);
+        $this->actingAs($admin);
 
         // admin buka halaman daftar user
         $this->visit('/user');
@@ -62,13 +62,13 @@ class ManageUsersTest extends TestCase
     public function admin_can_browser_users_index_page()
     {
         // admin dalam status sudah login
-        $user = User::create([
+        $admin = User::create([
             'name' => 'admin',
             'email' => 'admin@learn-laravel.com',
             'password' => bcrypt('inigarahasia')
         ]);
 
-        $this->actingAs($user);
+        $this->actingAs($admin);
 
 
         // generate 3 sample user record
@@ -106,7 +106,46 @@ class ManageUsersTest extends TestCase
     /** @test */
     public function admin_can_edit_an_existing_user()
     {
-        $this->assertTrue(true);
+        // admin dalam status sudah login
+        $admin = User::create([
+            'name' => 'admin',
+            'email' => 'admin@learn-laravel.com',
+            'password' => bcrypt('inigarahasia')
+        ]);
+
+        $this->actingAs($admin);
+
+
+        // generate 1 record user pada table `users`
+        $user = User::factory()->create();
+
+        // admin buka halaman daftar user
+        $this->visit('/user');
+
+        // klik tombol edit user 1
+        $this->click('edit_user_' . $user->id);
+
+        // lihat URL edit user
+        $this->seePageIs("/user/{$user->id}/edit");
+
+        // tampil form edit user
+        $this->seeElement('form', [
+            'action' => route('user.update', $user->id)
+        ]);
+
+        // admin submit form berisi data yang diperbaharui
+        $this->submitForm('Save Changes', [
+            'name' => 'Gun Gun Priatna'
+        ]);
+
+        // lihat halaman ter-redirect
+        $this->seePageIs('/user');
+
+        // lihat record pada database sudah sesuai dengan data yang diperbaharui
+        $this->seeInDatabase('users', [
+            'id' => $user->id,
+            'name' => 'Gun Gun Priatna'
+        ]);
     }
 
     /** @test */
