@@ -29,13 +29,13 @@
                             <td>{{ $user->email ?? '' }}</td>
                             <td>{{ $user->updated_at ?? '' }}</td>
                             <td class="text-center">
-                                <a href="{{ route('user.show', $user->id) }}" class="btn btn-sm btn-primary">View</a>
-                                <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-info">Edit</a>
+                                <a href="{{ route('user.show', $user->id) }}" class="btn btn-sm btn-primary" id="view_user_{{ $user->id }}">View</a>
+                                <a href="{{ route('user.edit', $user->id) }}" class="btn btn-sm btn-info" id="edit_user_{{ $user->id }}">Edit</a>
 
                                 <form action="{{ route('user.destroy', $user->id) }}" method="post" onsubmit="return confirm('are you sure?')" style="display: inline-block">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+                                    <button class="btn btn-sm btn-danger" type="submit" id="delete_user_{{ $user->id }}">Delete</button>
 
                                 </form>
                             </td>
